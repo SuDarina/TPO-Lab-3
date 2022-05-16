@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Authorized_User
+actor User
+rectangle AdSense-System {
+
+'Авторизованный пользователь
+
+    Authorized_User --> (Work with personal site)
+    (Work with personal site) ..> (Add site) : <<include>>
+    (Work with personal site) ..> (Delete site) : <<include>>
+    (Work with personal site) ..> (Connect site with\nAdsense Account) : <<include>>
+    (Work with personal site) ..> (Configuring site) : <<include>>
+
+    Authorized_User --> (Add description)
+
+    Authorized_User --> (Working with ad blocks)
+    (Working with ad blocks) ..> (View available ad blocks) : <<include>>
+    (Working with ad blocks) ..> (Configure ad blocks) : <<include>>
+
+    Authorized_User --> (Working with adverts)
+    (Working with adverts) ..> (Choose available\ntypes of adverts) : <<include>>
+    (Working with adverts) ..> (Configure content for all sites) : <<include>>
+    (Working with adverts) ..> (Configure content for\none special site) : <<include>>
+
+    Authorized_User --> (Generate a report)
+    (Generate a report) <.. (Filter reports) : <<extends>>
+    (Generate a report) <.. (Configure a report period) : <<extends>>
+    (Generate a report) <.. (Choose a type of report) : <<extends>>
+
+    Authorized_User --> (View violations)
+    Authorized_User --> (Add payment account)
+    Authorized_User --> (View messages)
+    Authorized_User --> (Add a review)
+
+
+
+    Authorized_User --> (Set global account settings)
+    (Set global account settings) ..> (Personal information) : <<include>>
+    (Set global account settings) ..> (Additional information) : <<include>>
+
+'Неавторизованный пользователь
+
+    User --> (Registration)
+    User --> (Sign in)
+    User --> (Calculation of possible earnings)
+    User --> (Connect a specialist)
+
+    User --> (Visit site pages)
+    (Visit site pages) ..> (Blog) : <<include>>
+    (Visit site pages) ..> (Success stories) : <<include>>
+    (Visit site pages) ..> (Resources) : <<include>>
+    (Visit site pages) ..> (Solutions) : <<include>>
+    (Visit site pages) ..> (Help) : <<include>>
+
+    User --> (Change language)
+
+}
+@enduml
