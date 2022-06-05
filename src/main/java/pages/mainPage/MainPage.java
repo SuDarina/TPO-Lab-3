@@ -1,4 +1,4 @@
-package com.example.tpolab3.authUserTest.mainPageTest;
+package pages.mainPage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

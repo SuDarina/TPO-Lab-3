@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.DelicateCategoriesPage;
 import util.Config;
 
 import java.time.Duration;
@@ -20,7 +21,7 @@ public class DelicateCategoriesPageTest {
 
     @BeforeAll
     static void setUp() {
-        driver = Config.getDriver();
+        driver = Config.getDriver(Config.getDriversName());
         assert driver != null;
         Config.setCookies(driver);
         delicateCategoriesPage = new DelicateCategoriesPage(driver);
@@ -50,10 +51,5 @@ public class DelicateCategoriesPageTest {
     public void switchToggleToBlock() throws InterruptedException {
         driver.get("https://www.google.com/adsense/new/u/0/pub-5006573477303631/brand-safety/ca-pub-5006573477303631/scb");
         assertTrue(switchToLock());
-    }
-
-    @Test
-    public void switchTpggleToUnlock() {
-
     }
 }

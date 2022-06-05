@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CookieManager {
-    private static final String fileName = "/Users/dariasupriadkina/IdeaProjects/TPO-Lab-3/src/test/resources/cookies.json";
+    private static final String fileName = "/Users/dariasupriadkina/IdeaProjects/TPO-Lab-3/src/main/resources/cookies.json";
     JSONParser parser = new JSONParser();
     public List<Cookie> readCookies() {
         List<Cookie> cookies = new ArrayList<Cookie>();
@@ -22,7 +22,6 @@ public class CookieManager {
                 JSONObject jo = (JSONObject) o;
                 Cookie cookie = new Cookie((String) jo.get("name"), (String) jo.get("value"));
                 cookies.add(cookie);
-//                System.out.println(cookie.getName() + " " + cookie.getValue());
             }
 
         } catch (IOException | ParseException e){

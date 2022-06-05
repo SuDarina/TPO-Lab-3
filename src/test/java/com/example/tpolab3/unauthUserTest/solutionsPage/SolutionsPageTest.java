@@ -4,69 +4,97 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import pages.SolutionsPage;
 import util.Config;
 
+
+import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class SolutionsPageTest {
-    static SolutionsPage solutionsPage;
-    static WebDriver driver;
+    SolutionsPage solutionsPage;
+    static List<WebDriver> drivers;
 
     @BeforeAll
     static void setUp() {
-        driver = Config.getDriver();
-        solutionsPage = new SolutionsPage(driver);
+        drivers = Config.getAllDrivers();
+        for (WebDriver d : drivers) {
+            Config.setCookies(d);
+        }
     }
 
 
     @AfterAll
     static void tearDown() {
-        driver.quit();
+        drivers.forEach(WebDriver::quit);
+    }
+
+    private void setConfig(WebDriver driver){
+        solutionsPage = new SolutionsPage(driver);
     }
 
     @Test
     public void getToAutoAdsPageFromHeader() {
-        driver.get("https://www.google.com/intl/ru_ru/adsense/start/solutions/");
-        solutionsPage.autoAds.click();
-        assertEquals("https://www.google.com/intl/ru_ru/adsense/start/solutions/auto-ads/",
-                driver.getCurrentUrl());
+        boolean result = true;
+        for(WebDriver driver : drivers) {
+            setConfig(driver);
+            driver.get("https://www.google.com/intl/ru_ru/adsense/start/solutions/");
+            solutionsPage.autoAds.click();
+            result &= Objects.equals("https://www.google.com/intl/ru_ru/adsense/start/solutions/auto-ads/",
+                    driver.getCurrentUrl());
+        }
+        assertTrue(result);
 
     }
 
     @Test
     public void getToAutoAdsPageFromLearnMore() {
-        driver.get("https://www.google.com/intl/ru_ru/adsense/start/solutions/");
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("window.scrollTo(0, document.body.scrollHeight / 4)", "");
+        boolean result = true;
+        for (WebDriver driver : drivers) {
+            setConfig(driver);
+            driver.get("https://www.google.com/intl/ru_ru/adsense/start/solutions/");
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
+            jse.executeScript("window.scrollTo(0, document.body.scrollHeight / 4)", "");
 
-        solutionsPage.autoAdsMore.click();
+            solutionsPage.autoAdsMore.click();
 
-        assertEquals("https://www.google.com/intl/ru_ru/adsense/start/solutions/auto-ads/",
-                driver.getCurrentUrl());
-
+            result &= Objects.equals("https://www.google.com/intl/ru_ru/adsense/start/solutions/auto-ads/",
+                    driver.getCurrentUrl());
+        }
+        assertTrue(result);
     }
 
     @Test
     public void getToResponsiveAdsPageFromHeader() {
-        driver.get("https://www.google.com/intl/ru_ru/adsense/start/solutions/");
-        solutionsPage.responsiveAds.click();
-        assertEquals("https://www.google.com/intl/ru_ru/adsense/start/solutions/responsive-ads/",
-                driver.getCurrentUrl());
+        boolean result = true;
+        for (WebDriver driver : drivers) {
+            setConfig(driver);
+            driver.get("https://www.google.com/intl/ru_ru/adsense/start/solutions/");
+            solutionsPage.responsiveAds.click();
+            result &= Objects.equals("https://www.google.com/intl/ru_ru/adsense/start/solutions/responsive-ads/",
+                    driver.getCurrentUrl());
+        }
+        assertTrue(result);
 
     }
 
     @Test
     public void getToResponsiveAdsPageFromLearnMore() {
-        driver.get("https://www.google.com/intl/ru_ru/adsense/start/solutions/");
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("window.scrollTo(0, document.body.scrollHeight / 2.25)", "");
+        boolean result = true;
+        for(WebDriver driver : drivers) {
+            setConfig(driver);
+            driver.get("https://www.google.com/intl/ru_ru/adsense/start/solutions/");
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
+            jse.executeScript("window.scrollTo(0, document.body.scrollHeight / 2.25)", "");
 
-        solutionsPage.responsiveAdsMore.click();
+            solutionsPage.responsiveAdsMore.click();
 
-        assertEquals("https://www.google.com/intl/ru_ru/adsense/start/solutions/responsive-ads/",
-                driver.getCurrentUrl());
-
+            result &= Objects.equals("https://www.google.com/intl/ru_ru/adsense/start/solutions/responsive-ads/",
+                    driver.getCurrentUrl());
+        }
+        assertTrue(result);
     }
 }
